@@ -15,6 +15,9 @@
 //includes
 #include "robotConfig.h"
 #include "opcontrol.hpp"
+#include "gui.hpp"
+#include "auton.hpp"
+#include "odom/gps.hpp"
 
 /////////////////////////////////////////
 
