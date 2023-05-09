@@ -15,8 +15,11 @@ extern motor_group rightBack;
 
 //other motors
 extern motor arm;
-extern motor intake1;
-extern motor intake2;
+
+
+//claw
+extern digital_out clawPiston;
+
 
 
 

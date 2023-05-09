@@ -7,7 +7,6 @@ using namespace vex;
 using namespace std;
 
 void driveOPControl(){
-
     double deadzone = 5;
     double turnImportance = 0.5;
     double headingTransVal = 0;
@@ -46,10 +45,12 @@ void driveOPControl(){
 
 
 void armOPControl(){
-    if(master.ButtonL1.pressing()){
+    bool armUp = master.ButtonL1.pressing();
+    bool armDown = master.ButtonL2.pressing();
+    if(armUp){
       arm.spin(fwd, 12, volt);
     }
-    else if(master.ButtonL2.pressing()){
+    else if(armDown){
       arm.spin(reverse, 12, volt);
     }
     else{
@@ -57,19 +58,19 @@ void armOPControl(){
     }
 }
 
-void intakeOPControl(){
-    
-    if(master.ButtonR1.pressing()){
-      intake1.spin(fwd, 12, volt);
-      intake2.spin(fwd, 12, volt);
+void clawOPControl(){
+    bool clawClose = master.ButtonR1.pressing();
+    bool clawOpen = master.ButtonR2.pressing();
+    ///////////////////////////
+    //claw control
+    ///////////////////////////
+    if(clawClose){
+      clawPiston.set(false);
     }
-    else if(master.ButtonR2.pressing()){
-      intake1.spin(reverse, 12, volt);
-      intake2.spin(reverse, 12, volt);
-    }
-    else{
-      intake1.stop();
-      intake2.stop();
+    else if(clawOpen){
+      clawPiston.set(true);
     }
 
 }
+
+

@@ -24,10 +24,15 @@ motor rightBack1 = motor(PORT11, ratio18_1);
 motor rightBack2 = motor(PORT5, ratio18_1);
 motor_group rightBack = motor_group(rightBack1, rightBack2);
 
+
+
+
+//e
+digital_out clawPiston = digital_out(Brain.ThreeWirePort.A);
+
 //other motors
 motor arm = motor(PORT15, true);
-motor intake1 = motor(PORT16);
-motor intake2 = motor(PORT17, true);
+
 
 
 

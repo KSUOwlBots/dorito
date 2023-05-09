@@ -2,4 +2,4 @@
 
 void driveOPControl();
 void armOPControl();
-void intakeOPControl();
+void clawOPControl();

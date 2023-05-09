@@ -61,10 +61,15 @@ void autonomous(void) {
 
 void usercontrol(void) {
   // User control code here, inside the loop
+  controllerGUI();
+  brainGUI();
+  clawPiston.set(false);
+  
   while (1) {
     driveOPControl();
     armOPControl();
-    intakeOPControl();
+    clawOPControl();
+    
     // This is the main execution loop for the user control program.
     // Each time through the loop your program should update motor + servo
     // values based on feedback from the joysticks.
