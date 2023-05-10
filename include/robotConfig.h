@@ -15,7 +15,7 @@ extern motor_group rightBack;
 
 //other motors
 extern motor arm;
-
+extern motor winch;
 
 //claw
 extern digital_out clawPiston;

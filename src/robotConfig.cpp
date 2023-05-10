@@ -32,6 +32,7 @@ digital_out clawPiston = digital_out(Brain.ThreeWirePort.A);
 
 //other motors
 motor arm = motor(PORT15, true);
+motor winch = motor(PORT16, true);
 
 
 

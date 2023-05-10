@@ -69,6 +69,7 @@ void usercontrol(void) {
     driveOPControl();
     armOPControl();
     clawOPControl();
+    winchOPControl();
     
     // This is the main execution loop for the user control program.
     // Each time through the loop your program should update motor + servo

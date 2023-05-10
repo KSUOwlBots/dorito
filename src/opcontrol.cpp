@@ -74,3 +74,17 @@ void clawOPControl(){
 }
 
 
+void winchOPControl(){
+    bool winchUp = master.ButtonUp.pressing();
+    bool winchDown = master.ButtonDown.pressing();
+    if(winchUp){
+      winch.spin(fwd, 12, volt);
+    }
+    else if(winchDown){
+      winch.spin(reverse, 12, volt);
+    }
+    else{
+      winch.stop(hold);
+    }
+}
+
