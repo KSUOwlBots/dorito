@@ -29,10 +29,11 @@ motor_group rightBack = motor_group(rightBack1, rightBack2);
 
 //e
 digital_out clawPiston = digital_out(Brain.ThreeWirePort.A);
+digital_out climbPiston = digital_out(Brain.ThreeWirePort.B);
 
 //other motors
 motor arm = motor(PORT15, true);
-motor winch = motor(PORT16, true);
+motor winch = motor(PORT19, true);
 
 
 
