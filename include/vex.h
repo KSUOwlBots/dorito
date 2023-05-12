@@ -14,10 +14,10 @@
 
 //includes
 #include "robotConfig.h"
-#include "opcontrol.hpp"
-#include "gui.hpp"
-#include "auton.hpp"
-#include "odom/gps.hpp"
+#include "opcontrol.h"
+#include "gui.h"
+#include "auton.h"
+#include "odom/gps.h"
 
 /////////////////////////////////////////
 
