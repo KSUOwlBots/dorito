@@ -13,11 +13,13 @@
 //////////////////////////////////////////
 
 //includes
+#include "timer.h"
 #include "robotConfig.h"
 #include "opcontrol.h"
 #include "gui.h"
 #include "auton.h"
-#include "odom/gps.h"
+#include "chassis/gps.h"
+#include "chassis/drivetrain.h"
 
 /////////////////////////////////////////
 
