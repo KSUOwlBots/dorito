@@ -1,4 +1,5 @@
 #include "vex.h"
+#include "drive/chassis.h"
 #include <cmath>
 // #include "strings.h"
 // #include <fstream>
@@ -12,6 +13,7 @@ void driveOPControl(){
     double headingTransVal = 0;
     double sideTransVal = 0;
     double turnVal = 0;
+    double motorVolt[4] = {0};
 
     if(abs(master.Axis3.position()) >= deadzone){
         headingTransVal = master.Axis3.position();
@@ -37,10 +39,15 @@ void driveOPControl(){
 
     //Give motors voltage values to run at
 
-    rightFront.spin (fwd, rightFrontVoltage, volt);
+    //rightFront.spin (fwd, rightFrontVoltage, volt);
     rightBack.spin  (fwd, rightBackVoltage, volt);
     leftFront.spin  (fwd, leftFrontVoltage, volt);
     leftBack.spin   (fwd, leftBackVoltage, volt);
+    motorVolt[0] = rightFrontVoltage;
+    motorVolt[1] = leftFrontVoltage;
+    motorVolt[2] = rightBackVoltage;
+    motorVolt[3] = leftBackVoltage;
+    Chassis::getInstance()->setDriveVolt(motorVolt);
 }
 
 

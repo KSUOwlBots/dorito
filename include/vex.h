@@ -18,8 +18,8 @@
 #include "opcontrol.h"
 #include "gui.h"
 #include "auton.h"
-#include "chassis/gps.h"
-#include "chassis/drivetrain.h"
+#include "drive/gps.h"
+#include "drive/Chassis.h"
 
 /////////////////////////////////////////
 
