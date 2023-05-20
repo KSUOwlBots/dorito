@@ -4,6 +4,17 @@
 
 class drivetrain
 {
-private:
-    
-}
+    private:
+        double wheelvolt[4] = {0};
+
+        vex::brakeType stopBrakeType;
+
+        void setMotorVolt();
+    public:
+        drivetrain();
+        void setStopBrakeType(brakeType brake);
+        void chassisBrake(brakeType brake);
+        void chassisRun();
+};
+
+#endif

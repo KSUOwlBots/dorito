@@ -13,7 +13,7 @@
 //////////////////////////////////////////
 
 //includes
-#include "timer.h"
+#include "helpers/timer.h"
 #include "robotConfig.h"
 #include "opcontrol.h"
 #include "gui.h"
