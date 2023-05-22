@@ -40,9 +40,9 @@ void driveOPControl(){
     //Give motors voltage values to run at
 
     //rightFront.spin (fwd, rightFrontVoltage, volt);
-    rightBack.spin  (fwd, rightBackVoltage, volt);
-    leftFront.spin  (fwd, leftFrontVoltage, volt);
-    leftBack.spin   (fwd, leftBackVoltage, volt);
+    // rightBack.spin  (fwd, rightBackVoltage, volt);
+    // leftFront.spin  (fwd, leftFrontVoltage, volt);
+    // leftBack.spin   (fwd, leftBackVoltage, volt);
     motorVolt[0] = rightFrontVoltage;
     motorVolt[1] = leftFrontVoltage;
     motorVolt[2] = rightBackVoltage;

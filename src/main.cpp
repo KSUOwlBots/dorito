@@ -90,6 +90,7 @@ void usercontrol(void) {
 //
 int main() {
   // Set up callbacks for autonomous and driver control periods.
+  thread UpdateChassis(updateChassis);
   Competition.autonomous(autonomous);
   Competition.drivercontrol(usercontrol);
 
