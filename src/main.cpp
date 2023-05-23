@@ -30,6 +30,7 @@ void pre_auton(void) {
 
   // All activities that occur before the competition starts
   // Example: clearing encoders, setting servo positions, ...
+  imu.calibrate();
 }
 
 /*---------------------------------------------------------------------------*/
@@ -64,12 +65,14 @@ void usercontrol(void) {
   controllerGUI();
   brainGUI();
   clawPiston.set(false);
+  imu.calibrate();
   
   while (1) {
     driveOPControl();
     armOPControl();
     clawOPControl();
     winchOPControl();
+    driveMacros();
     
     // This is the main execution loop for the user control program.
     // Each time through the loop your program should update motor + servo

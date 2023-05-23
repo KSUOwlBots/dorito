@@ -6,6 +6,9 @@ extern brain Brain;
 //controller
 extern controller master;
 
+//imu
+extern inertial imu;
+
 //drivetrain
 
 extern motor_group leftFront;

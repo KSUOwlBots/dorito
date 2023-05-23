@@ -92,3 +92,14 @@ void winchOPControl(){
     }
 }
 
+void driveMacros(){
+  bool turnFlag = true;
+  if(master.ButtonX.pressing()){
+    turnFlag = false;
+  }
+  if(turnFlag == false){
+    TurnTo(90);
+    turnFlag = true;
+  }
+
+}

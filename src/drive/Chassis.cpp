@@ -35,23 +35,23 @@ void Chassis::setMotorVolt(){
         leftFront.spin(directionType::fwd, driveVolt[1], voltageUnits::volt);
     }
 
-    if (driveVolt[2] == 0)
-    {
-        rightBack.stop(stopBrakeType);
-    }
-    else
-    {
-        rightBack.spin(directionType::fwd, driveVolt[2], voltageUnits::volt);
-    }
+    // if (driveVolt[2] == 0)
+    // {
+    //     rightBack.stop(stopBrakeType);
+    // }
+    // else
+    // {
+    //     rightBack.spin(directionType::fwd, driveVolt[2], voltageUnits::volt);
+    // }
 
-    if (driveVolt[3] == 0)
-    {
-        leftBack.stop(stopBrakeType);
-    }
-    else
-    {
-        leftBack.spin(directionType::fwd, driveVolt[3], voltageUnits::volt);
-    }
+    // if (driveVolt[3] == 0)
+    // {
+    //     leftBack.stop(stopBrakeType);
+    // }
+    // else
+    // {
+    //     leftBack.spin(directionType::fwd, driveVolt[3], voltageUnits::volt);
+    // }
 }
 void Chassis::chassisRun()
 { 
