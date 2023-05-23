@@ -11,7 +11,7 @@ void TurnTo(double rtarget)
   double lasterr=0;
   double speed=0;
   float kp=0.12672*1.4;
-  float kd=0.3;
+  float kd=0.03;
   float ki = 0.0125625;
   double integral = 0;
   float routput = 0;
@@ -19,7 +19,7 @@ void TurnTo(double rtarget)
   
   while (true)
   {
-    double motorVolt[4] = {0};
+    double motorVolt[4];
   
     //err is the rotation err and it calculated by subtracting the reading from the inertia sensor from the degrees of the rotational target or rtarget
     //the inertial sensor works off of a 360 degree scale, just like a circle, so defining rtarget is like picking what degree on a circle you want your robot to face to
@@ -40,7 +40,7 @@ void TurnTo(double rtarget)
     //to target is equal to the opposite of the interial sensor 
     //gyrorate, or the amount of updates the interial sensor is getting
     //about what direction the bot is facing
-    speed=imu.gyroRate(yaxis,dps);
+    speed=imu.gyroRate(xaxis,dps);
     
 
     //Updates lasterr to be the current err as err will change in the next cycle and the last err is needed in order to know how far the bot has turned
@@ -69,21 +69,17 @@ void TurnTo(double rtarget)
     routput=err*kp+speed*kd+integral*ki;
     
 
-
-
-
-
     //tells the wheels to spin at the volatages toutput and routput tell it to spin at
     // lDrive.spin(fwd, routput*1.2, volt);
     // rDrive.spin(fwd, -routput*1.2, volt);
     motorVolt[1] = routput*1.2;
     motorVolt[3] = routput*1.2;
     motorVolt[0] = -routput*1.2;
-    motorVolt[4] = -routput*1.2;
+    motorVolt[2] = -routput*1.2;
 
     Chassis::getInstance()->setDriveVolt(motorVolt);
-    Brain.Screen.clearScreen();
-    Brain.Screen.setCursor(1, 1);
+    master.Screen.clearScreen();
+    master.Screen.setCursor(1, 1);
     // Brain.Screen.print("Velocity: ");
     // Brain.Screen.print(flyVelocity);
     // Brain.Screen.newLine();

@@ -13,7 +13,7 @@ void driveOPControl(){
     double headingTransVal = 0;
     double sideTransVal = 0;
     double turnVal = 0;
-    double motorVolt[4] = {0};
+    double motorVolt[4] = {0,0,0,0};
 
     if(abs(master.Axis3.position()) >= deadzone){
         headingTransVal = master.Axis3.position();
@@ -98,7 +98,7 @@ void driveMacros(){
     turnFlag = false;
   }
   if(turnFlag == false){
-    TurnTo(90);
+    TurnTo(0);
     turnFlag = true;
   }
 

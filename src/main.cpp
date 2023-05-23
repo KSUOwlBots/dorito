@@ -67,12 +67,17 @@ void usercontrol(void) {
   clawPiston.set(false);
   imu.calibrate();
   
+  
   while (1) {
     driveOPControl();
     armOPControl();
     clawOPControl();
     winchOPControl();
     driveMacros();
+    master.Screen.clearScreen();
+    master.Screen.setCursor(1, 1);
+    master.Screen.print("angle: ");
+    master.Screen.print(imu.heading(degrees));
     
     // This is the main execution loop for the user control program.
     // Each time through the loop your program should update motor + servo
