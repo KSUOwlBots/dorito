@@ -10,7 +10,6 @@ using namespace std;
 void driveOPControl(){
     
     double deadzone = 5;
-    double iyaw = 0;//is this the same as turnimportance?
     double maxVoltage = 12.0;
     double turnImportance = 0.5;
     double headingTransVal = 0;
@@ -51,7 +50,7 @@ void driveOPControl(){
       ySpeed = 0;
     }
 
-    double yaw = clamp(iyaw, -1.0, 1.0);
+    double yaw = clamp(turnVal, -1.0, 1.0);
     if (std::abs(yaw) < deadzone) {
       yaw = 0;
     }
