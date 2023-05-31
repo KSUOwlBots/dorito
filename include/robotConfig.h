@@ -2,7 +2,9 @@ using namespace vex;
 
 extern brain Brain;
 
+class Chassis;
 
+extern Chassis chassis;
 //controller
 extern controller master;
 

@@ -14,6 +14,10 @@ using namespace vex;
 // A global instance of competition
 competition Competition;
 
+
+
+Chassis chassis{
+};
 // define your global instances of motors and other devices here
 
 /*---------------------------------------------------------------------------*/
@@ -98,7 +102,7 @@ void usercontrol(void) {
 //
 int main() {
   // Set up callbacks for autonomous and driver control periods.
-  thread UpdateChassis(updateChassis);
+  //thread UpdateChassis(updateChassis);
   Competition.autonomous(autonomous);
   Competition.drivercontrol(usercontrol);
 

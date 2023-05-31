@@ -14,6 +14,7 @@
 
 //includes
 #include "helpers/timer.h"
+#include "helpers/util.h"
 #include "robotConfig.h"
 #include "opcontrol.h"
 #include "gui.h"
