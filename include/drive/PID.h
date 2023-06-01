@@ -1,2 +1,0 @@
-
-void TurnTo(double rTarget);
