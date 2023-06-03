@@ -129,7 +129,7 @@ void driveMacros(){
     turnFlag = false;
   }
   if(turnFlag == false){
-    TurnTo(0);
+    TurnTo(0, 1);
     turnFlag = true;
   }
 

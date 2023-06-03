@@ -1,3 +1,3 @@
-void TurnTo(double rTarget);
+void TurnTo(double rTarget, double rSpeed);
 
 void driveTo(double );

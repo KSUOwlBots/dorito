@@ -176,7 +176,7 @@ void DriveTo(int target, double intake = 15, double errThres = 3, int rtarget=im
 
     //err is the rotation err and it calculated by subtracting the reading from the inertia sensor from the degrees of the rotational target or rtarget
     //the inertial sensor works off of a 360 degree scale, just like a circle, so defining rtarget is like picking what degree on a circle you want your robot to face to
-    err=rtarget-inertia.heading();
+    err=rtarget-imu.heading();
     
 
     //if inertial >180 away, change desired value by 360 degrees more or less.
@@ -226,8 +226,8 @@ void DriveTo(int target, double intake = 15, double errThres = 3, int rtarget=im
 
     //routput = 0;
     //tells the wheels to spin at the volatages toutput and routput tell it to spin at
-    lDrive.spin(fwd, (toutput+1 + routput*1.2), volt);
-    rDrive.spin(fwd, (toutput+1 - routput*1.2), volt);
+    // lDrive.spin(fwd, (toutput+1 + routput*1.2), volt);
+    // rDrive.spin(fwd, (toutput+1 - routput*1.2), volt);
     motorVolt[1] = toutput+1 + routput*1.2;
     motorVolt[3] = toutput+1 + routput*1.2;
     motorVolt[0] = toutput+1 - routput*1.2;
@@ -253,8 +253,8 @@ void DriveTo(int target, double intake = 15, double errThres = 3, int rtarget=im
     if (abs(speed*2) <= 1 && abs(err) <= 1 && abs(Tspeed*2) <= errThres && abs(Terr) <= 30)
     {
 
-      rDrive.stop(brake);
-      lDrive.stop(brake);
+    //   rDrive.stop(brake);
+    //   lDrive.stop(brake);
       break;
     }
   }
