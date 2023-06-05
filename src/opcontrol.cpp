@@ -54,8 +54,9 @@ void driveOPControl(){
     if (std::abs(yaw) < deadzone) {
       yaw = 0;
     }
-    double fwd = xSpeed * cos((imu).heading()) - ySpeed * sin((imu).heading());
-    double right = xSpeed * sin((imu).heading()) + ySpeed * cos((imu).heading());
+    //GET THIS IN RADIANS DUMMY
+    double fwd = xSpeed * cos(deg2rad((imu).heading())) - ySpeed * sin(deg2rad((imu).heading()));
+    double right = xSpeed * sin(deg2rad((imu).heading())) + ySpeed * cos(deg2rad((imu).heading()));
 
     
 
