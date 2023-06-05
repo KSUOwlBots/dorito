@@ -8,78 +8,134 @@ using namespace vex;
 using namespace std;
 
 void driveOPControl(){
-    
+    //controller deadzone
     double deadzone = 5;
+    //code deadzone
+    double deadband = .05;
+    //max voltage motors can run
     double maxVoltage = 12.0;
+    //smother turns
     double turnImportance = 0.5;
+    //yes.
     double headingTransVal = 0;
+    //yes.
     double sideTransVal = 0;
+    //yes.
     double turnVal = 0;
+    //init. motor volt array
     double motorVolt[4] = {0,0,0,0};
 
+    ///////////////////////////////////////////////
+    //get controller input
+    ///////////////////////////////////////////////
+    //move fwd/backwards
     if(abs(master.Axis3.position()) >= deadzone){
         headingTransVal = master.Axis3.position();
+        headingTransVal = headingTransVal/100;
     }
+    //move left/right
     if(abs(master.Axis4.position()) >= deadzone){
         sideTransVal = master.Axis4.position();
+        sideTransVal = sideTransVal/100;
     }
+    //turn
     if(abs(master.Axis1.position()) >= deadzone){
         turnVal = master.Axis1.position();
+        turnVal = turnVal/100;
     }
 
 
     //convert controller input into voltage inputs  
-    double turnVolts = turnVal * 0.12;
-    double forwardVolts = headingTransVal * 0.12 * (1 - (abs(turnVolts)/12.0) * turnImportance);
-    double strafeVolts = sideTransVal * 0.12 * (1 - (abs(turnVolts)/12.0) * turnImportance);
+    double turnVolts = turnVal * 12;
+    double forwardVolts = headingTransVal * 12 * (1 - (abs(turnVolts)*12.0) * turnImportance);
+    double strafeVolts = sideTransVal * 12 * (1 - (abs(turnVolts)*12.0) * turnImportance);
 
-    //set voltages for each motor
-    double rightFrontVoltage = + forwardVolts - strafeVolts + turnVolts;
-    double rightBackVoltage = + forwardVolts + strafeVolts + turnVolts;
-    double leftFrontVoltage = - forwardVolts - strafeVolts + turnVolts;
-    double leftBackVoltage = - forwardVolts + strafeVolts + turnVolts;
+    // //set voltages for each motor
+    // double rightFrontVoltage = + forwardVolts - strafeVolts + turnVolts;
+    // double rightBackVoltage = + forwardVolts + strafeVolts + turnVolts;
+    // double leftFrontVoltage = - forwardVolts - strafeVolts + turnVolts;
+    // double leftBackVoltage = - forwardVolts + strafeVolts + turnVolts;
     
 
+
+    ///////////////////////////////////////////////////////////////////////////////////
+    //for field oriented x/mechanum drive
+    ///////////////////////////////////////////////
+    //set x speed
     double xSpeed = clamp(headingTransVal, -1.0, 1.0);
-    if (std::abs(xSpeed) < deadzone) {
+    if (std::abs(xSpeed) < deadband) {
       xSpeed = 0;
     }
-
+    //set y speed
     double ySpeed = -clamp(sideTransVal, -1.0, 1.0);
-    if (std::abs(ySpeed) < deadzone) {
+    if (std::abs(ySpeed) < deadband) {
       ySpeed = 0;
     }
-
+    //set turn speed
     double yaw = clamp(turnVal, -1.0, 1.0);
-    if (std::abs(yaw) < deadzone) {
+    if (std::abs(yaw) < deadband) {
       yaw = 0;
     }
+
     //GET THIS IN RADIANS DUMMY
+    // fwd = xSpeed * cos((imu).heading()) - ySpeed * sin((imu).heading());
+    // right = xSpeed * sin((imu).heading()) + ySpeed * cos((imu).heading());
     double fwd = xSpeed * cos(deg2rad((imu).heading())) - ySpeed * sin(deg2rad((imu).heading()));
     double right = xSpeed * sin(deg2rad((imu).heading())) + ySpeed * cos(deg2rad((imu).heading()));
+    double rightFrontVoltage = (clamp(+fwd - right + yaw, -1.0, 1.0) * maxVoltage);
+    double leftFrontVoltage = (clamp(-fwd - right + yaw, -1.0, 1.0) * maxVoltage);
+    double rightBackVoltage = (clamp(+fwd + right + yaw, -1.0, 1.0) * maxVoltage);
+    double leftBackVoltage = (clamp(-fwd + right + yaw, -1.0, 1.0) * maxVoltage);
 
-    
 
+
+
+
+    ///////////////////////////////////////////////////////////////////////////////////
+    //for using without chassis object
+    ///////////////////////////////////////////////
     //Give motors voltage values to run at
-
     //rightFront.spin (fwd, rightFrontVoltage, volt);
     // rightBack.spin  (fwd, rightBackVoltage, volt);
     // leftFront.spin  (fwd, leftFrontVoltage, volt);
     // leftBack.spin   (fwd, leftBackVoltage, volt);
-    //for chassis object
-    // motorVolt[0] = rightFrontVoltage;
-    // motorVolt[1] = leftFrontVoltage;
-    // motorVolt[2] = rightBackVoltage;
-    // motorVolt[3] = leftBackVoltage;
-    //old chassis constructor for movement
-    // Chassis::getInstance()->setDriveVolt(motorVolt);
-
-    motorVolt[0] = (clamp(fwd + right - yaw, -1.0, 1.0) * maxVoltage);
-    motorVolt[1] = (clamp(fwd - right + yaw, -1.0, 1.0) * maxVoltage);
-    motorVolt[2] = (clamp(fwd - right - yaw, -1.0, 1.0) * maxVoltage);
-    motorVolt[3] = (clamp(fwd + right + yaw, -1.0, 1.0) * maxVoltage);
     
-    chassis.setDriveVolt(motorVolt);
+
+    // switch(setDriveProfile()){
+    //   case 1:
+    //   motorVolt[0] = (clamp(fwd + right - yaw, -1.0, 1.0) * maxVoltage);
+    //   motorVolt[1] = (clamp(fwd - right + yaw, -1.0, 1.0) * maxVoltage);
+    //   motorVolt[2] = (clamp(fwd - right - yaw, -1.0, 1.0) * maxVoltage);
+    //   motorVolt[3] = (clamp(fwd + right + yaw, -1.0, 1.0) * maxVoltage);
+    //     break;
+    //   case 2:
+    //   fwd = xSpeed * cos((imu).heading()) - ySpeed * sin((imu).heading());
+    //   right = xSpeed * sin((imu).heading()) + ySpeed * cos((imu).heading());
+    //   motorVolt[0] = (clamp(fwd + right - yaw, -1.0, 1.0) * maxVoltage);
+    //   motorVolt[1] = (clamp(fwd - right + yaw, -1.0, 1.0) * maxVoltage);
+    //   motorVolt[2] = (clamp(fwd - right - yaw, -1.0, 1.0) * maxVoltage);
+    //   motorVolt[3] = (clamp(fwd + right + yaw, -1.0, 1.0) * maxVoltage);
+    //     break;
+    //   case 3:
+    //    rightFrontVoltage = + forwardVolts - strafeVolts + turnVolts;
+    // rightBackVoltage = + forwardVolts + strafeVolts + turnVolts;
+    //  leftFrontVoltage = - forwardVolts - strafeVolts + turnVolts;
+    //  leftBackVoltage = - forwardVolts + strafeVolts + turnVolts;
+      
+    //     break;
+    // }
+
+    ///////////////////////////////////////////////////////////////////////////////////
+    //give the motor voltage array the values to run at
+    ///////////////////////////////////////////////
+    motorVolt[0] = rightFrontVoltage;
+    motorVolt[1] = leftFrontVoltage;
+    motorVolt[2] = rightBackVoltage;
+    motorVolt[3] = leftBackVoltage;
+
+    //chassis object set drive voltage to the motor voltage array
+    Chassis::getInstance()->setDriveVolt(motorVolt);
+    
 }
 
 

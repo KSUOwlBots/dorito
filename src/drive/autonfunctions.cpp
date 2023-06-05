@@ -76,8 +76,7 @@ void TurnTo(double rTarget, double rSpeed)
     motorVolt[3] = rOutput*1.2*rSpeed;
     motorVolt[0] = -rOutput*1.2*rSpeed;
     motorVolt[2] = -rOutput*1.2*rSpeed;
-
-    chassis.setDriveVolt(motorVolt);
+    Chassis::getInstance()->setDriveVolt(motorVolt);
     master.Screen.clearScreen();
     master.Screen.setCursor(1, 1);
     // Brain.Screen.print("Velocity: ");
@@ -232,6 +231,7 @@ void DriveTo(int target, double intake = 15, double errThres = 3, int rtarget=im
     motorVolt[3] = toutput+1 + routput*1.2;
     motorVolt[0] = toutput+1 - routput*1.2;
     motorVolt[2] = toutput+1 - routput*1.2;
+    Chassis::getInstance()->setDriveVolt(motorVolt);
 
     Brain.Screen.clearScreen();
     Brain.Screen.setCursor(1, 1);

@@ -16,8 +16,7 @@ competition Competition;
 
 
 
-Chassis chassis{
-};
+
 // define your global instances of motors and other devices here
 
 /*---------------------------------------------------------------------------*/
@@ -66,6 +65,7 @@ void autonomous(void) {
 
 void usercontrol(void) {
   // User control code here, inside the loop
+  setDriveProfile();
   controllerGUI();
   brainGUI();
   clawPiston.set(false);
