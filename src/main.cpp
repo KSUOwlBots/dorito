@@ -65,9 +65,9 @@ void autonomous(void) {
 
 void usercontrol(void) {
   // User control code here, inside the loop
+  Brain.Screen.clearScreen();
+  master.Screen.clearScreen();
   setDriveProfile();
-  controllerGUI();
-  brainGUI();
   clawPiston.set(false);
   imu.calibrate();
   
@@ -78,10 +78,10 @@ void usercontrol(void) {
     clawOPControl();
     winchOPControl();
     driveMacros();
-    master.Screen.clearScreen();
-    master.Screen.setCursor(1, 1);
-    master.Screen.print("angle: ");
-    master.Screen.print(imu.heading(degrees));
+    controllerGUI();
+    brainGUI();
+
+    
     
     // This is the main execution loop for the user control program.
     // Each time through the loop your program should update motor + servo
