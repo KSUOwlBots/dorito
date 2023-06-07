@@ -15,11 +15,12 @@
 //includes
 #include "helpers/timer.h"
 #include "helpers/util.h"
+#include "pid.h"
 #include "robotConfig.h"
 #include "opcontrol.h"
 #include "gui.h"
 #include "auton.h"
-#include "drive/gps.h"
+#include "drive/odom.h"
 #include "drive/Chassis.h"
 #include "drive/autonfunctions.h"
 

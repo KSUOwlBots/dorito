@@ -27,8 +27,9 @@ motor rightBack2 = motor(PORT5, ratio18_1);
 motor_group rightBack = motor_group(rightBack1, rightBack2);
 
 
-
-
+//tracker wheels
+encoder leftTracker = encoder(Brain.ThreeWirePort.E);
+encoder rightTracker = encoder(Brain.ThreeWirePort.D);
 
 
 //e

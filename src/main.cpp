@@ -15,7 +15,16 @@ using namespace vex;
 competition Competition;
 
 
-
+Chassis chassis{
+//left tracker diameter
+2.75,
+//left tracker center distance
+0,
+//right tracker diameter
+2.75,
+//right tracker center distance
+0
+};
 
 // define your global instances of motors and other devices here
 

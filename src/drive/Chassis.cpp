@@ -6,8 +6,58 @@ using namespace vex;
 using namespace std;
 
 
-Chassis::Chassis(){
-    stopBrakeType = coast;
+Chassis::Chassis(float leftTrackerDiameter, float leftTrackerCenterDistance, float rightTrackerDiameter, float rightTrackerCenterDistacne) :
+    leftTrackerCenterDistance(leftTrackerCenterDistance),
+    leftTrackerDiameter(leftTrackerDiameter),
+    leftTrackerInToDegRatio(leftTrackerDiameter * M_PI / 360),
+    rightTrackerCenterDistance(rightTrackerCenterDistacne),
+    rightTrackerDiameter(rightTrackerDiameter),
+    rightTrackerInToDegRatio(rightTrackerDiameter * M_PI / 360),
+    {
+        odom.set_physical_distances(leftTracckerCenterDistance, rightTrackerCenterDistance);
+        odom_task = task(position_track_task);
+        set_coordinates(0,0,0);
+    }
+/*
+Chassis(float leftTrackerDiameter, float leftTrackerCenterDistance, float rightTrackerDiameter, float rightTrackerCenterDistacne);
+        float get_absolute_heading();
+        odom odom;
+        float getLeftTrackerPos();
+        float getRightTrackerPos();
+        void set_coordinates(float X_position, float Y_position, float orientation_deg);
+        void position_track();
+        static int position_track_task();
+        vex::task odom_task;
+        float getXPos();
+        float getYPos();
+        void drivetoPoint(float X_position, float Y_position);
+        void driveToPoint(float X_position, float Y_position, float angle);
+        void driveToPoint(float X_position, float Y_position, float angle, float drive_max_voltage, float heading_max_voltage);
+        void driveToPoint(float X_position, float Y_position, float angle, float drive_max_voltage, float heading_max_voltage, float drive_settle_error, float drive_settle_time, float drive_timeout);
+        void driveToPoint(float X_position, float Y_position, float angle, float drive_max_voltage, float heading_max_voltage, float drive_settle_error, float drive_settle_time, float drive_timeout, float drive_kp, float drive_ki, float drive_kd, float drive_starti, float heading_kp, float heading_ki, float heading_kd, float heading_starti);
+
+
+        void setDriveVolt(double motorVolt[]);
+        void setStopBrakeType(brakeType brake);
+        void chassisHold(brakeType hold);
+        void chassisRun();
+        };
+
+*/
+float Chassis::get_absolute_heading(){ 
+  return( reduce_0_to_360( Gyro.rotation()*360.0/gyro_scale ) ); 
+}
+float Chassis::getLeftTrackerPos(){
+    return (leftTrackerPosition.position(deg)*leftTrackerInToDegRatio);
+}
+float Chassis::getRightTrackerPos(){
+    return (rightTrackerPosition.position(deg)*rightTrackerInToDegRatio);
+}
+void Chassis::position_track(){
+    odom.update_position(getLeftTrackerPos(), getRightTrackerPos(), odom.orientation_deg);
+}
+void Chassis::set_coordinates(float X_position, float Y_position, float orientation_deg){
+    odom.set_coordinates(X_position, Y_position, orientation_deg, getLeftTrackerPos(), getRightTrackerPos());
 }
 
 void Chassis::setDriveVolt(double motorVolt[]){
@@ -82,27 +132,3 @@ void updateChassis()
         this_thread::sleep_for(10);
     }   
 }
-
-/*
-#ifndef CHASSIS_H_
-#define CHASSIS_H_
-#include <math.h>
-
-class Chassis
-{
-    private:
-        double driveVolt[4] = {0};
-
-        vex::brakeType stopBrakeType;
-        void calcdriveVolt();
-        void setMotorVolt();
-    public:
-        Chassis();
-        void setStopBrakeType(brakeType brake);
-        void chassisBrake(brakeType brake);
-        void chassisRun();
-};
-
-#endif
-
-*/
