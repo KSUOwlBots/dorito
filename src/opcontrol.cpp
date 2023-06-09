@@ -182,14 +182,14 @@ void winchOPControl(){
 }
 
 void driveMacros(){
-  bool turnFlag = true;
-  if(master.ButtonX.pressing()){
-    turnFlag = false;
-  }
-  if(turnFlag == false){
-    TurnTo(0, 1);
-    turnFlag = true;
-  }
+  // bool turnFlag = true;
+  // if(master.ButtonX.pressing()){
+  //   turnFlag = false;
+  // }
+  // if(turnFlag == false){
+  //   TurnTo(0, 1);
+  //   turnFlag = true;
+  // }
 
 }
 

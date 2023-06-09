@@ -19,6 +19,8 @@ extern motor_group leftBack;
 extern motor_group rightFront;
 extern motor_group rightBack;
 
+extern encoder leftTracker;
+extern encoder rightTracker;
 //other motors
 extern motor arm;
 extern motor winch;

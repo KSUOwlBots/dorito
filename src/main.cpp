@@ -77,6 +77,7 @@ void usercontrol(void) {
   Brain.Screen.clearScreen();
   master.Screen.clearScreen();
   setDriveProfile();
+  master.Screen.clearScreen();
   clawPiston.set(false);
   imu.calibrate();
   
@@ -86,9 +87,9 @@ void usercontrol(void) {
     armOPControl();
     clawOPControl();
     winchOPControl();
-    driveMacros();
     controllerGUI();
     brainGUI();
+    chassis.chassisRun();
 
     
     

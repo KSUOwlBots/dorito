@@ -12,9 +12,9 @@ Chassis::Chassis(float leftTrackerDiameter, float leftTrackerCenterDistance, flo
     leftTrackerInToDegRatio(leftTrackerDiameter * M_PI / 360),
     rightTrackerCenterDistance(rightTrackerCenterDistacne),
     rightTrackerDiameter(rightTrackerDiameter),
-    rightTrackerInToDegRatio(rightTrackerDiameter * M_PI / 360),
+    rightTrackerInToDegRatio(rightTrackerDiameter * M_PI / 360)
     {
-        odom.set_physical_distances(leftTracckerCenterDistance, rightTrackerCenterDistance);
+        odom.set_physical_distances(leftTrackerCenterDistance, rightTrackerCenterDistance);
         odom_task = task(position_track_task);
         set_coordinates(0,0,0);
     }
@@ -45,19 +45,23 @@ Chassis(float leftTrackerDiameter, float leftTrackerCenterDistance, float rightT
 
 */
 float Chassis::get_absolute_heading(){ 
-  return( reduce_0_to_360( Gyro.rotation()*360.0/gyro_scale ) ); 
+  return(imu.heading()); 
 }
 float Chassis::getLeftTrackerPos(){
-    return (leftTrackerPosition.position(deg)*leftTrackerInToDegRatio);
+    return (leftTracker.position(deg)*leftTrackerInToDegRatio);
 }
 float Chassis::getRightTrackerPos(){
-    return (rightTrackerPosition.position(deg)*rightTrackerInToDegRatio);
+    return (rightTracker.position(deg)*rightTrackerInToDegRatio);
 }
 void Chassis::position_track(){
     odom.update_position(getLeftTrackerPos(), getRightTrackerPos(), odom.orientation_deg);
 }
 void Chassis::set_coordinates(float X_position, float Y_position, float orientation_deg){
-    odom.set_coordinates(X_position, Y_position, orientation_deg, getLeftTrackerPos(), getRightTrackerPos());
+    odom.set_position(X_position, Y_position, orientation_deg, getLeftTrackerPos(), getRightTrackerPos());
+}
+int Chassis::position_track_task(){
+  chassis.position_track();
+  return(0);
 }
 
 void Chassis::setDriveVolt(double motorVolt[]){
@@ -124,11 +128,11 @@ void Chassis::chassisHold(brakeType hold){
 
 
 
-void updateChassis()
-{
-    while(true)
-    {
-        Chassis::getInstance()->chassisRun();
-        this_thread::sleep_for(10);
-    }   
-}
+// void updateChassis()
+// {
+//     while(true)
+//     {
+//         Chassis::getInstance()->chassisRun();
+//         this_thread::sleep_for(10);
+//     }   
+// }
