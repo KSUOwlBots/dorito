@@ -8,7 +8,7 @@ brain  Brain;
 
 //controller
 controller master = controller(primary);
-inertial imu = inertial(PORT16);
+inertial imu = inertial(PORT19);
 //drivetrain
 motor leftFront1 = motor(PORT10, ratio18_1);
 motor leftFront2 = motor(PORT1, ratio18_1);
@@ -37,7 +37,7 @@ digital_out clawPiston = digital_out(Brain.ThreeWirePort.A);
 digital_out climbPiston = digital_out(Brain.ThreeWirePort.B);
 
 //other motors
-motor arm = motor(PORT20, true);
+motor arm = motor(PORT15, true);
 motor winch = motor(PORT17, true);
 
 

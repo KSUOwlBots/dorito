@@ -14,9 +14,13 @@ Chassis::Chassis(float leftTrackerDiameter, float leftTrackerCenterDistance, flo
     rightTrackerDiameter(rightTrackerDiameter),
     rightTrackerInToDegRatio(rightTrackerDiameter * M_PI / 360)
     {
+        stopBrakeType = coast;
         odom.set_physical_distances(leftTrackerCenterDistance, rightTrackerCenterDistance);
         odom_task = task(position_track_task);
         set_coordinates(0,0,0);
+    }
+    Chassis::Chassis(){
+        stopBrakeType = coast;
     }
 /*
 Chassis(float leftTrackerDiameter, float leftTrackerCenterDistance, float rightTrackerDiameter, float rightTrackerCenterDistacne);
@@ -128,11 +132,11 @@ void Chassis::chassisHold(brakeType hold){
 
 
 
-// void updateChassis()
-// {
-//     while(true)
-//     {
-//         Chassis::getInstance()->chassisRun();
-//         this_thread::sleep_for(10);
-//     }   
-// }
+void updateChassis()
+{
+    while(true)
+    {
+        Chassis::getInstance()->chassisRun();
+        this_thread::sleep_for(10);
+    }   
+}
