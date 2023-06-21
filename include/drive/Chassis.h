@@ -15,21 +15,22 @@ class Chassis
         float rightTrackerInToDegRatio;
         void setMotorVolt();
     public:
-        // static Chassis *getInstance(){
-        //     static Chassis *c = NULL;
-        //     if (c == NULL){
-        //         c = new Chassis();
-        //     }
-        //     return c;
-        // }
-        // static void deleteInstance(){
-        //     Chassis *c = Chassis::getInstance();
-        //     if(c != NULL){
-        //         delete c;
-        //         c = NULL;
-        //     }
-        // }
+        static Chassis *getInstance(){
+            static Chassis *c = NULL;
+            if (c == NULL){
+                c = new Chassis();
+            }
+            return c;
+        }
+        static void deleteInstance(){
+            Chassis *c = Chassis::getInstance();
+            if(c != NULL){
+                delete c;
+                c = NULL;
+            }
+        }
         Chassis(float leftTrackerDiameter, float leftTrackerCenterDistance, float rightTrackerDiameter, float rightTrackerCenterDistacne);
+        Chassis();
         float get_absolute_heading();
         odom odom;
         float getLeftTrackerPos();
@@ -53,5 +54,5 @@ class Chassis
         void chassisRun();
         };
 
-//void updateChassis();
+void updateChassis();
 #endif

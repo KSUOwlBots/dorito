@@ -136,6 +136,8 @@ void driveOPControl(){
     //chassis object set drive voltage to the motor voltage array
     //Chassis::getInstance()->setDriveVolt(motorVolt);
     chassis.setDriveVolt(motorVolt);
+    chassis.chassisRun();
+
     
 }
 
