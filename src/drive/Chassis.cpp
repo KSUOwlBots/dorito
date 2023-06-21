@@ -54,7 +54,7 @@ float Chassis::getRightTrackerPos(){
     return (rightTracker.position(deg)*rightTrackerInToDegRatio);
 }
 void Chassis::position_track(){
-    odom.update_position(getLeftTrackerPos(), getRightTrackerPos(), odom.orientation_deg);
+    odom.update_position(getLeftTrackerPos(), getRightTrackerPos(), get_absolute_heading());
 }
 void Chassis::set_coordinates(float X_position, float Y_position, float orientation_deg){
     odom.set_position(X_position, Y_position, orientation_deg, getLeftTrackerPos(), getRightTrackerPos());
@@ -74,6 +74,7 @@ void Chassis::setMotorVolt(){
     if (driveVolt[0] == 0)
     {
         rightFront.stop(stopBrakeType);
+        rightFront.spin(directionType::fwd, driveVolt[0], voltageUnits::volt);
     }
     else
     {
@@ -83,6 +84,7 @@ void Chassis::setMotorVolt(){
     if (driveVolt[1] == 0)
     {
         leftFront.stop(stopBrakeType);
+        leftFront.spin(directionType::fwd, driveVolt[1], voltageUnits::volt);
     }
     else
     {
@@ -92,6 +94,7 @@ void Chassis::setMotorVolt(){
     if (driveVolt[2] == 0)
     {
         rightBack.stop(stopBrakeType);
+        rightBack.spin(directionType::fwd, driveVolt[2], voltageUnits::volt);
     }
     else
     {
@@ -101,6 +104,7 @@ void Chassis::setMotorVolt(){
     if (driveVolt[3] == 0)
     {
         leftBack.stop(stopBrakeType);
+        leftBack.spin(directionType::fwd, driveVolt[3], voltageUnits::volt);
     }
     else
     {
@@ -111,8 +115,8 @@ void Chassis::chassisRun()
 { 
     setMotorVolt();
 }
-void Chassis::setStopBrakeType(brakeType brake){
-    stopBrakeType = brake;
+void Chassis::setStopBrakeType(brakeType coast){
+    stopBrakeType = coast;
 }
 
 void Chassis::chassisHold(brakeType hold){

@@ -3,9 +3,9 @@
 
 using namespace vex;
 
-void odom::set_physical_distances(float leftTrackerCenterDistance, float rightTrackerCenterDistance){
-  this->leftTrackerCenterDistance = leftTrackerCenterDistance;
-  this->rightTrackerCenterDistance = rightTrackerCenterDistance;
+void odom::set_physical_distances(float xTrackerError, float yTrackerError){
+  this->xTrackerError = xTrackerError;
+  this->yTrackerError = yTrackerError;
 }
 
 void odom::set_position(float X_position, float Y_position, float orientation_deg, float leftTrackerPosition, float rightTrackerPosition){
@@ -25,8 +25,9 @@ void odom::update_position(float leftTrackerPosition, float rightTrackerPosition
   float prev_orientation_rad = deg2rad(this->orientation_deg);
   float orientation_delta_rad = orientation_rad-prev_orientation_rad;
   this->orientation_deg=orientation_deg;
-  float Forward_delta = (-cos(rightTrackerPosition) - cos(leftTrackerPosition));
-  float Sideways_delta = (sin(rightTrackerPosition) - sin(rightTrackerPosition));
+  //do funni math here for tracker angles
+  float Forward_delta = (-cos(rightTrackerDelta) - cos(leftTrackerDelta));
+  float Sideways_delta = (sin(rightTrackerDelta) - sin(leftTrackerDelta));
 
   float local_X_position;
   float local_Y_position;
@@ -36,8 +37,8 @@ void odom::update_position(float leftTrackerPosition, float rightTrackerPosition
     local_Y_position = Forward_delta;
   } 
   else {
-    local_X_position = (2*sin(orientation_delta_rad/2))*((Sideways_delta/orientation_delta_rad)); 
-    local_Y_position = (2*sin(orientation_delta_rad/2))*((Forward_delta/orientation_delta_rad));
+    local_X_position = (2*sin(orientation_delta_rad/2))*((Sideways_delta/orientation_delta_rad) + xTrackerError); 
+    local_Y_position = (2*sin(orientation_delta_rad/2))*((Forward_delta/orientation_delta_rad) + yTrackerError);
   }
 
   float local_polar_angle;
