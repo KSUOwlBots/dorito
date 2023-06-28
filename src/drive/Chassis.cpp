@@ -81,7 +81,7 @@ void Chassis::setMotorVolt(){
     {
         rightFront.stop(stopBrakeType);
         rightFront.spin(directionType::fwd, driveVolt[0], voltageUnits::volt);
-    }
+    }//e
     else
     {
         rightFront.spin(directionType::fwd, driveVolt[0], voltageUnits::volt);
