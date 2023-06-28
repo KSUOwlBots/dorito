@@ -50,7 +50,7 @@ class Chassis
 
 
         void setDriveVolt(double motorVolt[]);
-        void setStopBrakeType(brakeType brake);
+        void setStopBrakeType(brakeType coast);
         void chassisHold(brakeType hold);
         void chassisRun();
         };

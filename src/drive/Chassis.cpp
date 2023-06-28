@@ -60,7 +60,7 @@ float Chassis::getRightTrackerPos(){
     return (rightTracker.position(deg)*rightTrackerInToDegRatio);
 }
 void Chassis::position_track(){
-    odom.update_position(getLeftTrackerPos(), getRightTrackerPos(), odom.orientation_deg);
+    odom.update_position(getLeftTrackerPos(), getRightTrackerPos(), get_absolute_heading());
 }
 void Chassis::set_coordinates(float X_position, float Y_position, float orientation_deg){
     odom.set_position(X_position, Y_position, orientation_deg, getLeftTrackerPos(), getRightTrackerPos());
@@ -121,8 +121,8 @@ void Chassis::chassisRun()
 { 
     setMotorVolt();
 }
-void Chassis::setStopBrakeType(brakeType brake){
-    stopBrakeType = brake;
+void Chassis::setStopBrakeType(brakeType coast){
+    stopBrakeType = coast;
 }
 
 void Chassis::chassisHold(brakeType hold){
