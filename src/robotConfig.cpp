@@ -8,9 +8,9 @@ brain  Brain;
 
 //controller
 controller master = controller(primary);
-inertial imu = inertial(PORT19);
+inertial imu = inertial(PORT18);
 //drivetrain
-motor leftFront1 = motor(PORT10, ratio18_1);
+motor leftFront1 = motor(PORT19, ratio18_1);
 motor leftFront2 = motor(PORT1, ratio18_1);
 motor_group leftFront = motor_group(leftFront1, leftFront2);
 

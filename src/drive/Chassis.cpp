@@ -6,7 +6,8 @@ using namespace vex;
 using namespace std;
 
 
-Chassis::Chassis(float leftTrackerDiameter, float leftTrackerCenterDistance, float rightTrackerDiameter, float rightTrackerCenterDistacne) :
+Chassis::Chassis(float activeBrake, float leftTrackerDiameter, float leftTrackerCenterDistance, float rightTrackerDiameter, float rightTrackerCenterDistacne) :
+    activeBrakekp(activeBrake),
     leftTrackerCenterDistance(leftTrackerCenterDistance),
     leftTrackerDiameter(leftTrackerDiameter),
     leftTrackerInToDegRatio(leftTrackerDiameter * M_PI / 360),
@@ -14,16 +15,17 @@ Chassis::Chassis(float leftTrackerDiameter, float leftTrackerCenterDistance, flo
     rightTrackerDiameter(rightTrackerDiameter),
     rightTrackerInToDegRatio(rightTrackerDiameter * M_PI / 360)
     {
-        stopBrakeType = coast;
+        stopBrakeType = brake;
         odom.set_physical_distances(leftTrackerCenterDistance, rightTrackerCenterDistance);
         odom_task = task(position_track_task);
         set_coordinates(0,0,0);
     }
     Chassis::Chassis(){
-        stopBrakeType = coast;
+        stopBrakeType = brake;
+        activeBrakekp =.3;
     }
 /*
-Chassis(float leftTrackerDiameter, float leftTrackerCenterDistance, float rightTrackerDiameter, float rightTrackerCenterDistacne);
+Chassis(float activeBrake, float leftTrackerDiameter, float leftTrackerCenterDistance, float rightTrackerDiameter, float rightTrackerCenterDistacne);
         float get_absolute_heading();
         odom odom;
         float getLeftTrackerPos();
@@ -78,6 +80,7 @@ void Chassis::setMotorVolt(){
     if (driveVolt[0] == 0)
     {
         rightFront.stop(stopBrakeType);
+        rightFront.spin(directionType::fwd, driveVolt[0], voltageUnits::volt);
     }
     else
     {
@@ -87,6 +90,7 @@ void Chassis::setMotorVolt(){
     if (driveVolt[1] == 0)
     {
         leftFront.stop(stopBrakeType);
+        leftFront.spin(directionType::fwd, driveVolt[1], voltageUnits::volt);
     }
     else
     {
@@ -96,6 +100,7 @@ void Chassis::setMotorVolt(){
     if (driveVolt[2] == 0)
     {
         rightBack.stop(stopBrakeType);
+        rightBack.spin(directionType::fwd, driveVolt[2], voltageUnits::volt);
     }
     else
     {
@@ -105,6 +110,7 @@ void Chassis::setMotorVolt(){
     if (driveVolt[3] == 0)
     {
         leftBack.stop(stopBrakeType);
+        leftBack.spin(directionType::fwd, driveVolt[3], voltageUnits::volt);
     }
     else
     {
