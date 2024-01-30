@@ -74,10 +74,10 @@ void autonomous(void) {
 
 void usercontrol(void) {
   // User control code here, inside the loop
-  controllerGUI();
   brainGUI();
   clawPiston.set(false);
-  imu.calibrate();
+    imu.calibrate();
+
   
   
   while (1) {

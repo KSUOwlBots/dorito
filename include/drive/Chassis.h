@@ -13,6 +13,7 @@ class Chassis
         float rightTrackerCenterDistance;
         float rightTrackerDiameter;
         float rightTrackerInToDegRatio;
+        float activeBrakekp;
         void setMotorVolt();
     public:
         static Chassis *getInstance(){
@@ -29,7 +30,7 @@ class Chassis
                 c = NULL;
             }
         }
-        Chassis(float leftTrackerDiameter, float leftTrackerCenterDistance, float rightTrackerDiameter, float rightTrackerCenterDistacne);
+        Chassis(float activeBrake, float leftTrackerDiameter, float leftTrackerCenterDistance, float rightTrackerDiameter, float rightTrackerCenterDistance);
         Chassis();
         float get_absolute_heading();
         odom odom;
